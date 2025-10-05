@@ -20,22 +20,23 @@ A Node.js server for capturing screenshots of web pages using headless browser a
 ## Installation
 
 1. Clone the repository
+
    ```bash
    git clone <repository-url>
    cd horus
    ```
-
 2. Install dependencies
+
    ```bash
    npm install
    ```
-
 3. Create a `.env` file (use `.env.example` as a template)
+
    ```bash
    cp .env.example .env
    ```
-
 4. Start the server
+
    ```bash
    npm start
    # or for development with auto-reload
@@ -60,6 +61,7 @@ NODE_ENV=development
 ### Process Management
 
 - `POST /api/process/start` - Start a development server
+
   ```json
   {
     "projectPath": "/path/to/your/project",
@@ -69,13 +71,13 @@ NODE_ENV=development
     }
   }
   ```
-
 - `POST /api/process/stop/:processId` - Stop a running process
 - `GET /api/process` - List all running processes
 
 ### Screenshots
 
 - `POST /api/screenshot` - Capture a screenshot
+
   ```json
   {
     "url": "http://localhost:3000",
@@ -93,8 +95,8 @@ NODE_ENV=development
     }
   }
   ```
-
 - `POST /api/screenshot/batch` - Capture multiple screenshots
+
   ```json
   {
     "urls": ["http://example.com/page1", "http://example.com/page2"],
@@ -103,35 +105,101 @@ NODE_ENV=development
     }
   }
   ```
-
 - `GET /api/screenshot` - List all captured screenshots
 - `GET /api/screenshot/:id` - Get info about a specific screenshot
 - `GET /screenshots/:filename` - Access a screenshot file directly
 
 ## Usage Example
 
+Example path:
+
 1. Start a development server:
+
    ```bash
    curl -X POST http://localhost:4000/api/process/start \
      -H "Content-Type: application/json" \
      -d '{"projectPath": "/path/to/your/nextjs/app"}'
    ```
-
 2. Take a screenshot:
+
    ```bash
    curl -X POST http://localhost:4000/api/screenshot \
      -H "Content-Type: application/json" \
      -d '{"url": "http://localhost:3000"}'
    ```
 
+## Example JSON:
+
+***Getting Screenshot:***
+
+**POST:**
+
+
+{
+
+  "url":"http://localhost:5173/public-chat",
+
+  "options":{
+
+    "fullPage":true,
+
+    "viewport":{
+
+    "width":1920,
+
+    "height":1080
+
+    },
+
+    "waitForSelector":".loaded",
+
+    "waitForTimeout":6000,
+
+    "format":"png",
+
+    "quality":80
+
+  }
+
+}
+
+**Returned JSON:**
+
+
+{
+
+    "id":"screenshot-1759673543453",
+
+    "url":"http://localhost:5173/public-chat",
+
+    "path":"E:\\Horus\\screenshots\\screenshot-1759673536019.png",
+
+    "timestamp":"2025-10-05T14:12:23.453Z",
+
+    "size":80221,
+
+    "viewport":{
+
+    "width":1920,
+
+    "height":1080
+
+    },
+
+    "format":"png"
+
+}
+
+
 ## Development
 
 - Run the server in development mode:
+
   ```bash
   npm run dev
   ```
-
 - Run tests (when available):
+
   ```bash
   npm test
   ```
