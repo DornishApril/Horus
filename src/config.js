@@ -11,7 +11,8 @@ const defaultConfig = {
   },
   app: {
     defaultPort: parseInt(process.env.DEFAULT_APP_PORT, 10) || 3000,
-    startupTimeout: 60000
+    startupTimeout: parseInt(process.env.STARTUP_TIMEOUT, 10) || 60000,
+    shutdownTimeout: parseInt(process.env.SHUTDOWN_TIMEOUT, 10) || 5000
   },
   browser: {
     headless: true,
@@ -98,15 +99,22 @@ const loadConfig = (userConfig = {}) => {
   return config;
 };
 
-// Get configuration sections
-const getServerConfig = () => loadConfig().server;
-const getBrowserConfig = () => loadConfig().browser;
-const getScreenshotConfig = () => loadConfig().screenshot;
+// Initialize and validate config on load
+const config = loadConfig();
 
-module.exports = {
-  loadConfig,
-  validateConfig,
-  getServerConfig,
-  getBrowserConfig,
-  getScreenshotConfig
-};
+// Get configuration sections
+const getServerConfig = () => config.server;
+const getBrowserConfig = () => config.browser;
+const getScreenshotConfig = () => config.screenshot;
+const getAppConfig = () => config.app;
+
+// Export the config object as default (for processManager.js compatibility)
+module.exports = config;
+
+// Also export utility functions as named exports
+module.exports.loadConfig = loadConfig;
+module.exports.validateConfig = validateConfig;
+module.exports.getServerConfig = getServerConfig;
+module.exports.getBrowserConfig = getBrowserConfig;
+module.exports.getScreenshotConfig = getScreenshotConfig;
+module.exports.getAppConfig = getAppConfig;
