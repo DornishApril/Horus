@@ -1,0 +1,23 @@
+{
+  "name": "horus",
+  "version": "1.0.0",
+  "description": "Screenshot automation server for React/Next.js applications",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["screenshot", "automation", "puppeteer", "nextjs", "react"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "puppeteer": "^21.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
